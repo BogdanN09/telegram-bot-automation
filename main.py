@@ -1,8 +1,11 @@
+import os
 import telegram
 from apscheduler.schedulers.blocking import BlockingScheduler
 
-# Вставь сюда свой токен
-bot = telegram.Bot(token='7783872604:AAHCxg7-_2ItRC1Tilx39_hCaxwDb4ncW0c')  # Замените на свой токен
+# Получаем токен из переменной окружения
+token = os.getenv('TELEGRAM_TOKEN')
+
+bot = telegram.Bot(token=token)
 chat_id = '@cryptowave_daily'  # Замените на свой канал
 
 def send_message():
@@ -12,3 +15,5 @@ def send_message():
 scheduler = BlockingScheduler()
 scheduler.add_job(send_message, 'interval', minutes=10)  # Публиковать каждые 10 минут
 scheduler.start()
+
+
